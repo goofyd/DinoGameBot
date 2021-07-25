@@ -29,7 +29,5 @@ def processJump(threshold=12.5):
 
     jump = False if output < threshold else True
     if jump:
-        print(output)
+        print(round(output))
     return jump
-
-#processJump()
