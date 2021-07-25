@@ -9,9 +9,6 @@ driver_name = 'chromedriver.exe'
 start_time = time()
 canvas_css = 'div.runner-container[role="application"]'
 
-driver = Chrome(driver_name)
-
-
 def killExistingChromeDriver(name):
     try:
         process = f'taskkill /f /im {name}'
@@ -28,9 +25,9 @@ def playGame(driver):
         print(f"Jumped at {time()-start_time} seconds")
 
 
+killExistingChromeDriver(driver_name)
+driver = Chrome(driver_name)
 try:
-
-    killExistingChromeDriver(driver_name)
     driver.get('https://google.com')
 except:
     driver.find_element_by_tag_name('body').send_keys(Keys.SPACE)
