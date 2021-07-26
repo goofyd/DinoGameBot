@@ -7,7 +7,7 @@ from os import system
 
 driver_name = 'chromedriver.exe'
 start_time = time()
-canvas_css = 'div.runner-container[role="application"]'
+
 
 def killExistingChromeDriver(name):
     try:
@@ -18,21 +18,21 @@ def killExistingChromeDriver(name):
 
 
 def playGame(driver):
-    canvas = driver.find_element_by_css_selector(canvas_css)
-    canvas.screenshot('img.png')
-    if processJump(threshold=12.8):
+    driver.save_screenshot('img.png')
+    if processJump(threshold=12.9):
         ActionChains(driver).send_keys(Keys.SPACE).perform()
-        print(f"Jumped at {time()-start_time} seconds")
+        print(f"*****Jumped at {time()-start_time}  seconds*****")
 
 
 killExistingChromeDriver(driver_name)
 driver = Chrome(driver_name)
 try:
-    driver.get('https://google.com')
+    driver.get('chrome://dino/')
 except:
+    driver.maximize_window()
+    sleep(3)
     driver.find_element_by_tag_name('body').send_keys(Keys.SPACE)
     print('Started the Game!')
     sleep(1)
-    while time()-start_time < 60:
+    while True:
         playGame(driver)
-    driver.quit()

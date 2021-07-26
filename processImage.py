@@ -6,10 +6,10 @@ def processJump(threshold=12.5):
     img = Image.open('img.png')
     w, h = img.size
 
-    left = w - (w*0.85)
-    top = h/1.7
-    right = w-(w*0.65)
-    bottom = (3.7*h)/4.2
+    left = w - (w*0.79)
+    top = h/2
+    right = w-(w*0.67)
+    bottom = (3.2*h)/5
 
     focus_area = (left, top, right, bottom)
     img1 = img.crop(focus_area)
@@ -20,14 +20,15 @@ def processJump(threshold=12.5):
     img2 = np.asarray(img1)
     img3 = Image.fromarray(img2[0:int(h1*0.92)][0:w1])
     w2, h2 = img3.size
+    img3.save('out.png')
 
     finalImage = np.asarray(img3)
     trueCount = np.count_nonzero(finalImage)
     totalCount = w2 * h2
 
     output = trueCount/totalCount * 100
-
+    print(None)
     jump = False if output < threshold else True
     if jump:
-        print(round(output))
+        print('Found Obstacle!')
     return jump
